@@ -13,6 +13,7 @@ function App() {
     <div className="App">
       <div style={styles}>
       <h1 style={{color: "green"}}>안녕하세요!</h1>
+      <div>test1</div>
       <hr/>
       <p style={{textAlign: "left"}}>이름을 입력해주세요.</p>
       <input type="text" />
