@@ -12,11 +12,17 @@ class App extends React.Component {
     }
 
     this.text = React.createRef();
+    // this.state.list = React.createRef();
   }
 
   componentDidMount() {
-    console.log(this.text);
-    console.log(this.text.current);
+  }
+
+  addBucket = () => {
+    // console.log(this.text.current.value);
+    const new_item = this.text.current.value;
+    this.setState({list: [...this.state.list, new_item]});
+    //list를 새롭게 갱신한다.
   }
 
   render() {
@@ -30,12 +36,12 @@ class App extends React.Component {
             <BucketList list={this.state.list}/>
           </div>
         </Container>
-        <div>
-          <input type="text" ref={this.text}
-          onChange={() => {
-            console.log(this.text.current.value);
-          }}/>
-        </div>
+        <SearchBackground>
+          <SearchContainer>
+            <input type="text" ref={this.text}/>
+            <button onClick={this.addBucket}>추가하기</button>
+          </SearchContainer>
+        </SearchBackground>
       </div>
     );
   }
@@ -44,7 +50,7 @@ class App extends React.Component {
 
 const Container = styled.div`
   background-color: #eee;
-  height: 100vh;
+  height: 90vh;
   width: 100vw;
   display: flex;
 
@@ -73,9 +79,25 @@ const Container = styled.div`
       background-color: aliceblue;
     }
   }
-
-
 `;
 //div.App은 잘 안건드리는 듯하다... 조심하자!
+
+const SearchBackground = styled.div`
+  background-color: #eee;
+  display: flex;
+  justify-content: center;
+  height: 10vh;
+`;
+
+const SearchContainer = styled.div`
+  background-color: #fff;
+  max-width: 350px;
+  width: 50vw;
+  
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+
+`;
 
 export default App;
