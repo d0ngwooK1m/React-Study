@@ -1,26 +1,42 @@
 // 리액트 패키지를 불러옵니다.
-import React from 'react'; 
+import React from "react";
+import styled from "styled-components";
+import {useHistory} from "react-router";
+import {useSelector} from "react-redux";
 
-const BucketList = ({ list }) => {
-const my_lists = list;
-const my_wrap = React.useRef(null);
 
-console.log(my_wrap);
+const BucketList = () => {
+    const history = useHistory();
+    const my_lists = useSelector((state) => state.bucket.list);
+    //스토어가 가지고 있는 전체 데이터를 가져와달라(state) =>전체 안에 모듈 안에 있는 Array만 가져와라 (state.bucket.list) 
 
-window.setTimeout(() => {
-    console.log(my_wrap);
-}, 1000);
-return (
-<div ref={my_wrap}>
-{
-my_lists.map((list, index) => {
-// 콘솔을 확인해봅시다 :)
-console.log(list);
-return (<div className="list-item" key={index}>{list}</div>);
-})
-}
-</div>
-);
-}
+    return (
+        <ListStyle>
+            {my_lists.map((list, index) => {
+                return (
+                    <ItemStyle className="list_item" key={index} onClick={() => {
+                        history.push("/detail/"+index);
+                    }}>
+                    {list}
+                    </ItemStyle>
+                );
+            })}
+        </ListStyle>
+    );
+};
+
+const ListStyle = styled.div`
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+`;
+
+const ItemStyle = styled.div`
+    padding: 16px;
+    margin: 8px;
+    background-color: aliceblue;
+`;
 
 export default BucketList;

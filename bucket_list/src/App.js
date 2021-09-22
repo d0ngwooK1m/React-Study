@@ -1,103 +1,80 @@
 import React from "react";
-import BucketList from './BucketList';
-import "./style.css";
 import styled from "styled-components";
+import { Route, Switch } from "react-router-dom";
+import {useDispatch} from "react-redux"; 
+// BucketList 컴포넌트를 import 해옵니다.
+// import [컴포넌트 명] from [컴포넌트가 있는 파일경로];
+import BucketList from "./BucketList";
+import Detail from "./Detail";
+import NotFound from "./NotFound"
+import {createBucket} from "./redux/modules/bucket"
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
+function App() {
 
-    this.state = {
-      list: ["옷이랑 신발사기", "하루동안 아무것도 안하기", "자전거 타기"],
-    }
+// const [list, setList] = React.useState(["영화관 가기", "매일 책읽기", "수영 배우기"]);
+const text = React.useRef(null);
+const dispatch = useDispatch();
 
-    this.text = React.createRef();
-    // this.state.list = React.createRef();
-  }
-
-  componentDidMount() {
-  }
-
-  addBucket = () => {
-    // console.log(this.text.current.value);
-    const new_item = this.text.current.value;
-    this.setState({list: [...this.state.list, new_item]});
-    //list를 새롭게 갱신한다.
-  }
-
-  render() {
-    console.log(this.state.list)
-    return (
-      <div className="App">
-        <Container>
-          <div className="container">
-            <h1>내 버킷리스트</h1>
-            <hr className="line" />
-            <BucketList list={this.state.list}/>
-          </div>
-        </Container>
-        <SearchBackground>
-          <SearchContainer>
-            <input type="text" ref={this.text}/>
-            <button onClick={this.addBucket}>추가하기</button>
-          </SearchContainer>
-        </SearchBackground>
-      </div>
-    );
-  }
+const addBucketList = () => {
+// setList([...list, text.current.value]);
+    dispatch(createBucket(text.current.value));
 }
-//왜 new 키워드를 안써도 되는거지? 원래 그런건감
+
+return (
+<div className="App">
+<Container>
+<Title>내 버킷리스트</Title>
+<Line />
+{/* 컴포넌트를 넣어줍니다. */}
+{/* <컴포넌트 명 [props 명]={넘겨줄 것(리스트, 문자열, 숫자, ...)}/> */}
+<Switch>
+    <Route path="/" exact>
+        <BucketList component={BucketList}/>
+    </Route>
+    <Route path="/detail/:index" exact component={Detail}>
+    </Route>
+    <Route>
+        <NotFound />
+    </Route>
+</Switch>
+</Container>
+{/* 인풋박스와 추가하기 버튼을 넣어줬어요. */}
+<Input>
+<input type="text" ref={text} />
+<button onClick={addBucketList}>추가하기</button>
+</Input>
+</div>
+);
+}
+
+const Input = styled.div`
+max-width: 350px;
+min-height: 10vh;
+background-color: #fff;
+padding: 16px;
+margin: 20px auto;
+border-radius: 5px;
+border: 1px solid #ddd;
+`;
 
 const Container = styled.div`
-  background-color: #eee;
-  height: 90vh;
-  width: 100vw;
-  display: flex;
-
-  .container {
-    margin: auto;
-    background-color: #fff;
-    width: 50vw;
-    max-width: 350px;
-    height: 80vh;
-    padding: 16px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-
-    h1 {
-      color: slateblue;
-      text-align: center;
-    }
-
-    hr {
-      margin: 16px 0px;
-    }
-
-    .list-item {
-      padding: 16px;
-      margin: 8px;
-      background-color: aliceblue;
-    }
-  }
-`;
-//div.App은 잘 안건드리는 듯하다... 조심하자!
-
-const SearchBackground = styled.div`
-  background-color: #eee;
-  display: flex;
-  justify-content: center;
-  height: 10vh;
+max-width: 350px;
+min-height: 60vh;
+background-color: #fff;
+padding: 16px;
+margin: 20px auto;
+border-radius: 5px;
+border: 1px solid #ddd;
 `;
 
-const SearchContainer = styled.div`
-  background-color: #fff;
-  max-width: 350px;
-  width: 50vw;
-  
-  padding: 16px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+const Title = styled.h1`
+color: slateblue;
+text-align: center;
+`;
 
+const Line = styled.hr`
+margin: 16px 0px;
+border: 1px dotted #ddd;
 `;
 
 export default App;
