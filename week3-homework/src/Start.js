@@ -3,7 +3,7 @@ import img from "./images/pepegood.jpg"
 import styled from "styled-components";
 import {useHistory} from "react-router"
 import {useDispatch} from "react-redux"
-import {addName} from "./redux/modules/name";
+import {addName, addNameFB} from "./redux/modules/name";
 
 const Start = () => {
     const history = useHistory();
@@ -18,7 +18,7 @@ const Start = () => {
             <input type="text" ref={name_ref}/>
             <button onClick={() => {
                 // console.log(name_ref.current.value);
-                dispatch(addName(name_ref.current.value));
+                dispatch(addNameFB(name_ref.current.value));
                 history.push("/quiz");
             }}>시작하기!</button>
         </>

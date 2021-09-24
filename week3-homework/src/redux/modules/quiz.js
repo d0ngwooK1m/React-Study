@@ -1,8 +1,13 @@
-const ADD_ANSWER = "quiz/ADD_ANSWER"
+const ADD_ANSWER = "quiz/ADD_ANSWER";
+const CLEAR_ANSWER = "quiz/CLEAR_ANSWER";
 
 export const addAnswer = (user_answer) => {
     console.log("다음 문제로 넘어갑니다잉");
     return {type: ADD_ANSWER, user_answer}
+}
+
+export const clearAnswer = () => {
+    return {type: CLEAR_ANSWER}
 }
 
 const initialState = {
@@ -27,11 +32,12 @@ export default function reducer(state = initialState, action={}) {
             console.log(new_user_answer_list);
             return {...state, user_answer_list: new_user_answer_list};
         }
+        case "quiz/CLEAR_ANSWER": {
+            return {...state, user_answer_list: []};
+        }
         default:
             return state;
     }
-
-
 }
 
 

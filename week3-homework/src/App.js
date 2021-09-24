@@ -4,7 +4,21 @@ import {Route, Switch} from "react-router-dom";
 import Start from "./Start"; 
 import Quiz from "./Quiz";
 import Score from "./Score";
+import Rank from "./Rank";
 import NotFound from "./NotFound";
+
+import {withRouter} from "react-router"
+import {connect} from "react-redux"
+
+const mapStateTopProps = (state) => ({
+  ...state,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  load: () => {
+
+  },
+});
 
 function App() {
   return (
@@ -20,8 +34,12 @@ function App() {
           <Route path="/score" exact component={Score}>  
           </Route>
 
-          <Route component={NotFound}>
+          <Route path="/rank" exact component={Rank}>
 
+          </Route>
+
+          <Route component={NotFound}>
+          
           </Route>
         </Switch>
       </Container>
@@ -36,4 +54,4 @@ const Container = styled.div`
   margin: auto;
 `;
 
-export default App;
+export default connect(mapStateTopProps, mapDispatchToProps)(withRouter(App));
