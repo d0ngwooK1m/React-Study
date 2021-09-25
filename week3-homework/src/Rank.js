@@ -1,18 +1,21 @@
 import React, {useRef} from "react";
 import styled from "styled-components";
-import { useSelector} from "react-redux";
-import {useHistory} from "react-router";
+import { useSelector, useDispatch} from "react-redux";
+import {useHistory,} from "react-router";
+import { clearAnswer } from "./redux/modules/quiz";
 
 
 const Rank = () => {
+    const dispatch = useDispatch();
     const history = useHistory();
     const Id = useRef(0);
     const my_rank = useSelector((state) => state.rank.rank_list);
-    console.log(my_rank);
+    console.log(my_rank[0].score);
     const sorted_rank = my_rank.sort((a, b) => {
         return b.score - a.score;
         
-    })
+    });
+    console.log(sorted_rank);
     
     return (
         <>
@@ -39,6 +42,7 @@ const Rank = () => {
                     })}
                 </TopContainer>
                 <Return onClick={() => {
+                    dispatch(clearAnswer());
                     history.push("/");
                 }}>돌아가기</Return>
         </>

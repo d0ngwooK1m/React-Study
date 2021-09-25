@@ -8,19 +8,29 @@ import Rank from "./Rank";
 import NotFound from "./NotFound";
 
 import {withRouter} from "react-router"
-import {connect} from "react-redux"
+import {connect, useDispatch} from "react-redux"
+import {loadRankingsFB} from "./redux/modules/rank";
+import React from 'react';
 
-const mapStateTopProps = (state) => ({
-  ...state,
-});
+// const mapStateTopProps = (state) => ({
+//   ...state,
+// });
 
-const mapDispatchToProps = (dispatch) => ({
-  load: () => {
+// const mapDispatchToProps = (dispatch) => ({
+//   load: () => {
 
-  },
-});
+//   },
+// });
+
+
 
 function App() {
+  const dispatch = useDispatch();
+
+  React.useEffect(async () => {
+    dispatch(loadRankingsFB());
+  }, []);
+
   return (
     <div className="App">
       <Container>
@@ -54,4 +64,5 @@ const Container = styled.div`
   margin: auto;
 `;
 
-export default connect(mapStateTopProps, mapDispatchToProps)(withRouter(App));
+// export default connect(mapStateTopProps, mapDispatchToProps)(withRouter(App));
+export default App;

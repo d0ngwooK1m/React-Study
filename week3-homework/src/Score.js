@@ -3,7 +3,7 @@ import {useHistory} from "react-router";
 import styled from "styled-components";
 import img from "./images/pepewine.png";
 import { useDispatch, useSelector } from "react-redux";
-import { updateRank } from "./redux/modules/rank";
+import { updateRank, loadRankingsFB } from "./redux/modules/rank";
 import { clearAnswer } from "./redux/modules/quiz";
 import {db} from "./firebase";
 import {collection, addDoc} from "@firebase/firestore";
@@ -37,13 +37,15 @@ const Score = () => {
     const dispatch = useDispatch();
     const addRank = async () => {
         // console.log(rank, my_name[0], score, comment.current.value);
-        dispatch(updateRank({ name: my_name[0], score: score, comment: comment.current.value}))
-
-        const docRef = await addDoc(collection(db, "ranking"), {
+        // dispatch(updateRank({ name: my_name[0], score: score, comment: comment.current.value}))
+        await addDoc(collection(db, "ranking"), {
             name: my_name[0],
             score: score,
             comment: comment.current.value
         });
+
+        dispatch(loadRankingsFB());
+
         history.push("/rank")
     }
 
