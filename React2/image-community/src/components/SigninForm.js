@@ -4,6 +4,7 @@ import { getCookie, setCookie, deleteCookie } from "../shared/Cookie";
 
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
+import { emailCheck } from "../shared/common";
 
 const SigninForm = (props) => {
     const dispatch = useDispatch();
@@ -14,6 +15,10 @@ const SigninForm = (props) => {
     const login = () => {
         if (id === "" || pw === "") {
             window.alert("공란이 없도록 해주세요!")
+        }
+
+        if (!emailCheck(id)) {
+            window.alert("양식을 맞춰주세요");
         }
 
         console.log("signinform login");

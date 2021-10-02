@@ -3,6 +3,7 @@ import { Grid, Button, Input, Text } from "../elements";
 
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
+import { emailCheck } from "../shared/common";
 
 const SignupForm = (props) => {
     const dispatch = useDispatch();
@@ -19,6 +20,10 @@ const SignupForm = (props) => {
 
         if (pw !== pwCheck) {
             return;
+        }
+
+        if (!emailCheck(id)) {
+            window.alert("양식을 맞춰주세요");
         }
 
         dispatch(userActions.signupFB(id, pw, user_name));

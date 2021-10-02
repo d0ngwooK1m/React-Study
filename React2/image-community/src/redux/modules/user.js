@@ -22,6 +22,7 @@ const setUser = createAction(SET_USER, (user) => ({ user }));
 // initialState
 const initialState = {
     user: null,
+    uid: "guest",
     is_signin: false,
 }
 

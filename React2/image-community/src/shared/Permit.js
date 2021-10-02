@@ -9,7 +9,6 @@ const Permit = (props) => {
 
     const is_session = sessionStorage.getItem(_session_key) ? true : false;
 
-    console.log("test123");
 
     if (is_session && is_signin) {
         return (
