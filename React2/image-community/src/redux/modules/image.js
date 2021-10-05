@@ -25,15 +25,12 @@ const uploadImageFB = (image) => {
         dispatch(uploading(true));
 
         const _upload = storage.ref(`images/${image.name}`).put(image);
-        console.log("ref");
 
         _upload.then((snapshot) => {
-            console.log(snapshot);
             dispatch(uploading(false));
 
             snapshot.ref.getDownloadURL().then((url) => {
                 dispatch(uploadImage(url));
-                console.log(url);
             });
         });
     }

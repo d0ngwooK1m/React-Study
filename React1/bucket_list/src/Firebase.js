@@ -6,14 +6,16 @@ import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+require('dotenv').config();
+
 const firebaseConfig = {
-  apiKey: "AIzaSyBKbUzK88_jiEtO2lv1tGcSDdijm2upP9I",
-  authDomain: "dongwookim-react-study.firebaseapp.com",
-  projectId: "dongwookim-react-study",
-  storageBucket: "dongwookim-react-study.appspot.com",
-  messagingSenderId: "510991709673",
-  appId: "1:510991709673:web:634556ebfd93c71cfb8778",
-  measurementId: "G-P39F3TFZRV"
+  apiKey: process.env.REACT_APP_apiKey,
+  authDomain: process.env.REACT_APP_authDomain,
+  projectId: process.env.REACT_APP_projectId,
+  storageBucket: process.env.REACT_APP_storageBucket,
+  messagingSenderId: process.env.REACT_APP_messagingSenderId,
+  appId: process.env.REACT_APP_appId,
+  measurementId: process.env.REACT_APP_measurementId
 };
 
 initializeApp(firebaseConfig);

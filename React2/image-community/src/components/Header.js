@@ -11,6 +11,8 @@ import { history } from "../redux/configureStore";
 import pepe from "../imageSrc/pepegood.jpg"
 import { apiKey } from "../shared/firebase";
 
+import NotiBadge from "./NotiBadge";
+
 const Header = (props) => {
     const dispatch = useDispatch();
     const is_signin = useSelector((state) => state.user.is_signin);
@@ -32,9 +34,12 @@ const Header = (props) => {
                             <Grid width="100px">
                                 <Button backgroundColor="#eee" color="black" text="내 정보"></Button>
                             </Grid>
-                            <Grid width="100px">
-                                <Button backgroundColor="#eee" color="black" text="알림"></Button>
+                            <Grid width="50px">
+                                <NotiBadge _onClick={() => {
+                                    history.push("/noti");
+                                }} />
                             </Grid>
+
                             <Grid width="100px">
                                 <Button backgroundColor="#eee" color="black" text="로그아웃" _onClick={() => {
                                     dispatch(userActions.signoutFB());

@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 
 const Input = (props) => {
-    const { width, placeholder, label, children, _onChange, type } = props;
+    const { width, placeholder, label, children, _onChange, type, value, isSubmit, onSubmit } = props;
 
     const inputStyle = { width, type };
     const labelStyle = { label };
@@ -21,7 +21,13 @@ const Input = (props) => {
     return (
         <React.Fragment>
             <Label {...labelStyle}>{children}
-                <InputElement {...inputStyle} placeholder={placeholder} onChange={_onChange} />
+                {isSubmit ? <InputElement {...inputStyle} placeholder={placeholder} onChange={_onChange} value={value}
+                    onKeyPress={(e) => {
+                        if (e.key === "Enter") {
+                            onSubmit(e);
+                        }
+                    }}
+                /> : <InputElement {...inputStyle} placeholder={placeholder} onChange={_onChange} />}
             </Label>
         </React.Fragment>
     );
@@ -32,6 +38,9 @@ Input.defaultProps = {
     placeholder: "Check it Again",
     label: "block",
     type: "text",
+    value: "",
+    isSubmit: false,
+    onSubmit: () => { },
     _onChange: () => { }
 }
 

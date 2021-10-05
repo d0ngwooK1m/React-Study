@@ -28,6 +28,8 @@ const Upload = (props) => {
 
     const uploadFB = () => {
         let image = fileInput.current.files[0];
+
+
         dispatch(imageActions.uploadImageFB(image));
 
 

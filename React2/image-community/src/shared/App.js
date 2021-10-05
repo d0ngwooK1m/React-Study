@@ -10,7 +10,9 @@ import PostList from "../pages/PostList";
 import SigninPage from "../pages/SigninPage";
 import SignupPage from "../pages/SignupPage";
 import PostDetail from "../pages/PostDetail";
+import Notification from "../pages/Notification";
 import Search from "./Search";
+
 
 import PostAdd from "../pages/PostAdd";
 import { Grid, Button } from "../elements";
@@ -42,9 +44,10 @@ function App() {
           <Route path="/" exact component={PostList}></Route>
           <Route path="/signin" exact component={SigninPage}></Route>
           <Route path="/signup" exact component={SignupPage}></Route>
-          <Route path="/postdetail" exact component={PostDetail}></Route>
+          <Route path="/postdetail/:post_id" exact component={PostDetail}></Route>
           <Route path="/postadd" exact component={PostAdd}></Route>
           <Route path="/write/:post_id" exact component={PostAdd}></Route>
+          <Route path="/noti" exact component={Notification}></Route>
           <Route path="/search" exact component={Search}></Route>
         </ConnectedRouter>
       </Grid>

@@ -8,14 +8,22 @@ import { actionCreators as postActions } from "../redux/modules/post";
 import { actionCreators as imageActions } from "../redux/modules/image";
 
 const PostAdd = (props) => {
+    useEffect(() => {
+        if (post_id !== undefined) {
+            dispatch(imageActions.getEditPostFB(post_id));
+        }
+
+
+    }, []);
+
     const dispatch = useDispatch();
     const is_signin = useSelector((state) => state.user.is_signin);
     const preview = useSelector((state) => state.image.preview);
     const edit_image = useSelector((state) => state.image.edit_post.image_url);
     const edit_content = useSelector((state) => state.image.edit_post.contents);
 
+    const post_id = props.match.params.post_id;
 
-    const post_id = props.match.params.post_id
 
 
     const { history } = props;
@@ -31,7 +39,20 @@ const PostAdd = (props) => {
         history.replace("/");
     }
 
-    dispatch(imageActions.getEditPostFB(post_id));
+    const editPost = () => {
+        let fixed_content;
+
+        if (contents === "") {
+            fixed_content = edit_content;
+        } else {
+            fixed_content = contents;
+        }
+
+
+        dispatch(postActions.editPostFB(post_id, { contents: fixed_content, }));
+
+        history.replace("/");
+    }
 
 
 
@@ -61,7 +82,7 @@ const PostAdd = (props) => {
                     <Input type="textarea" width="100vw" _onChange={changeContents} placeholder={edit_content}></Input>
                 </Grid>
                 <Grid>
-                    <Button _onClick={addPost} text="게시글 작성"></Button>
+                    <Button _onClick={editPost} text="게시글 수정"></Button>
                 </Grid>
             </React.Fragment>
         );

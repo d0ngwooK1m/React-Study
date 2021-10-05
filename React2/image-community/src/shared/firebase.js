@@ -2,15 +2,19 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
+import "firebase/database";
+import "firebase/analytics";
+
+require('dotenv').config();
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDDnSlehn7fTzY80kQPyTwk80WUnlv92hQ",
-    authDomain: "dongwoo-image-community.firebaseapp.com",
-    projectId: "dongwoo-image-community",
-    storageBucket: "dongwoo-image-community.appspot.com",
-    messagingSenderId: "778376281328",
-    appId: "1:778376281328:web:20489df2b0617bea9e1635",
-    measurementId: "G-N1SL0ESPM5"
+    apiKey: process.env.REACT_APP_apiKey,
+    authDomain: process.env.REACT_APP_authDomain,
+    projectId: process.env.REACT_APP_projectId,
+    storageBucket: process.env.REACT_APP_storageBucket,
+    messagingSenderId: process.env.REACT_APP_messagingSenderId,
+    appId: process.env.REACT_APP_appId,
+    measurementId: process.env.REACT_APP_measurementId
 }
 
 firebase.initializeApp(firebaseConfig);
@@ -19,7 +23,9 @@ const apiKey = firebaseConfig.apiKey;
 const auth = firebase.auth();
 const firestore = firebase.firestore();
 const storage = firebase.storage();
+const realtime = firebase.database();
+const analytics = firebase.analytics();
 
 
 
-export { auth, apiKey, firestore, storage };
+export { auth, apiKey, firestore, storage, realtime, analytics };
